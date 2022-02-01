@@ -18,6 +18,7 @@
                 <h4 class="text-center alert alert-info">Add/Update Student</h4>
                 <form action="" method="POST">
                     {% csrf_token %}
+                    <input type="hidden" id="stuid" name="stuid">
                     {{form.as_p}}
 
                     <input type="button" id="btnsave" class="btn btn-success" value="Save">
@@ -45,7 +46,7 @@
                               <td>{{st.email}}</td>
                               <td>{{st.password}}</td>
                               <td>
-                                  <input type="button" data-sid="{{st.id}}" class="btn btn-warning btn-sm" value="Edit">
+                                  <input type="button" data-sid="{{st.id}}" class="btn btn-warning btn-sm btn-edit" value="Edit">
                                   <input type="button" data-sid="{{st.id}}" class="btn btn-danger btn-sm btn-del" value="Delete">
 
                               </td>
