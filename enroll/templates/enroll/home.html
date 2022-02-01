@@ -13,12 +13,51 @@
 
     <div class="container mt-5">
         <h2 class="text-center alert alert-danger">Django Function Based View Bootstrap 5 CRUD Project</h2>
-    </div>
-    <form action="" method="POST">
-        {% csrf_token %}
-        {{form.as_p}}
+        <div class="row">
+            <div class="col-sm-4">
+                <h4 class="text-center alert alert-info">Add/Update Student</h4>
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    {{form.as_p}}
 
-    </form>
+                    <input type="button" id="btnsave" class="btn btn-success" value="Save">
+            
+                </form>
+            </div>
+
+            <div class="col-sm-7">
+                <h4 class="text-center alert alert-info"> Show Student Information</h4>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Password</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for st in stud %}
+                          <tr>
+                              <td>{{st.id}}</td>
+                              <td>{{st.name}}</td>
+                              <td>{{st.email}}</td>
+                              <td>{{st.password}}</td>
+                              <td>
+                                  <input type="button" data-sid="{{st.id}}" class="btn btn-warning btn-sm" value="Edit">
+                                  <input type="button" data-sid="{{st.id}}" class="btn btn-danger btn-sm" value="Delete">
+
+                              </td>
+                          </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+    </div>
+   
 
     <script src="{% static 'enroll/js/jquery.js' %}"></script>
     <script src="{% static 'enroll/js/popper.js' %}"></script>
