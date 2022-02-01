@@ -1,5 +1,6 @@
 <script>
 
+//insert data
     $("#btnsave").click(function(){
         console.log("Save Button Clicked");
 
@@ -41,7 +42,7 @@
                         output += "<tr><td>" + x[i].id + "</td><td>" + x[i].name + "</td><td>" + x[i].email
                             +"</td><td>"+ x[i].password + 
                                 "</td><td><input type='button' data-sid="+x[i].id +" class='btn btn-warning btn-sm' value='Edit'>" + 
-                                " <input type='button' data-sid="+x[i].id +" class='btn btn-danger btn-sm' value='Delete'> </td></tr>";
+                                " <input type='button' data-sid="+x[i].id +" class='btn btn-danger btn-sm btn-del' value='Delete'> </td></tr>";
                      }
 
                      $("#tbody").html(output);
@@ -57,7 +58,39 @@
 
     });
 
+//Delete Data
+
+$("#tbody").on("click", ".btn-del", function(){
+
+    //console.log("Delete Button Clicked");
+    let id = $(this).attr("data-sid");
+    let csr = $("input[name=csrfmiddlewaretoken]").val();
+
+   // console.log(id);
+    mydata = {sid: id, csrfmiddlewaretoken: csr};
+    trthis = this;
+
+
+    $.ajax({
+        url: "{% url 'delete' %}",
+        method: "POST",
+        data: mydata,
+        success: function(data){
+           // console.log(data);
+
+           if(data.status == 1){
+               console.log("Data Delete Successfully");
+               $(trthis).closest("tr").fadeOut();
+               //$(trthis).closest("tr").fadeOut();
+           }
+           if(data.status == 0){
+               console.log("Unable Delete Data");
+           }
+        },
+    });
+});
    
+
 
 
 
